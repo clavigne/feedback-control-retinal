@@ -1,6 +1,7 @@
 import numpy as np
 import scipy.linalg as npl
 import Operators as ops
+import os
 
 # Constants
 planck = 4.13566751691e-15 # ev s
@@ -66,6 +67,7 @@ if compute_hamiltonian:
     shift = absmax - eabsmax
     e = e - shift
 
+    os.makedirs("matrices", exist_ok=True)
     np.save("matrices/diag_e.npy", e)
     np.save("matrices/diag_p.npy", P)
 
@@ -108,6 +110,7 @@ if compute_operators:
     es = e[sel]
     fcf_e = fcf_e[sel]
 
+    os.makedirs("operators", exist_ok=True)
     np.save('operators/fcf_e.npy', fcf_e)
     np.save('operators/Pte.npy',Pte)
     np.save('operators/Pce.npy',Pce)
