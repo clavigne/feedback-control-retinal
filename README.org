@@ -1,5 +1,7 @@
 This repo reproduces some results from [[https://aip.scitation.org/doi/abs/10.1063/1.5003389][this paper]] on the control of retinal isomerization using shaped, ultrashort laser pulses. The model is abstracted for use with arbitrary optimizers.
 
+*Disclaimer:* This is pretty bad code I wrote at the beginning of my PhD, years ago, with no unit tests or verification procedure, and hastily abstracted from the project repo years after I last touched it. It's not for production! Don't play with it and expect it to work!
+
 * Usage
 Generate a fitness function based on the laser parameters from the paper,
 #+BEGIN_SRC python
@@ -25,3 +27,5 @@ Note that the cost of an evaluation is directly proportional to amount of points
 
 * Hamiltonian construction
 The retinal Hamiltonian is built using ~python retinal_build.py~, which generates the matrices in the ~operators/~ directory. These have been included in the repo for convenience, so there is no need to generate them again.
+
+This needs a fair amount of RAM (like 10gb or so), so close Chrome and the Slack app before running the construction script.
