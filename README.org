@@ -1,0 +1,27 @@
+This repo reproduces some results from [[https://aip.scitation.org/doi/abs/10.1063/1.5003389][this paper]] on the control of retinal isomerization using shaped, ultrashort laser pulses. The model is abstracted for use with arbitrary optimizers.
+
+* Usage
+Generate a fitness function based on the laser parameters from the paper,
+#+BEGIN_SRC python
+  import retinal_control
+
+  fitness = retinal_control.build_fitness_function(
+      nbins=30,
+      tl_duration=19.0,
+      e_carrier=2.22,
+      e_shaper=0.3,
+      total_duration=1000.0,
+      avgtimes=np.linspace(900,1100,10))
+#+END_SRC
+
+~fitness(veci, veca)~ is a function that takes as input a nbins long (30 here) ndarray ~veci~ of pixel transparencies for the shaper with values between 0 and 1, and a ~nbins~ long ndarray ~veca~ with pixel delay angles between 0 and 2 pi (periodic).
+
+~fitness()~ returns the normalized trans population (between 0 and 1) of the excited portion of the molecules, averaged over the time points (delays from the excitation) values in avgtimes.
+
+Optimization consists of maximizing or minimizing the value of ~fitness()~.
+
+Note that the cost of an evaluation is directly proportional to amount of points in avgtimes. However, making avgtimes small yields transient maximization that rapidly vanishes, as described at length in the paper. No other parameters of the fitness generator have any effect on performance.
+
+
+* Hamiltonian construction
+The retinal Hamiltonian is built using ~python retinal_build.py~, which generates the matrices in the ~operators/~ directory. These have been included in the repo for convenience, so there is no need to generate them again.
