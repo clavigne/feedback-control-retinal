@@ -1,6 +1,6 @@
-This repo reproduces some results from [[https://aip.scitation.org/doi/abs/10.1063/1.5003389][this paper]] on the control of retinal isomerization using shaped, ultrashort laser pulses. The model is abstracted for use with arbitrary optimizers.
+This repo is based on code used in [[https://aip.scitation.org/doi/abs/10.1063/1.5003389][this paper]] on the control of retinal isomerization using shaped, ultrashort laser pulses. The retinal isomerization control model is abstracted for use with arbitrary optimizers.
 
-*Disclaimer:* This is pretty bad code I wrote at the beginning of my PhD, years ago, with no unit tests or verification procedure, and hastily abstracted from the project repo years after I last touched it. It's not for production! Don't play with it and expect it to work!
+*Disclaimer:* This is pretty bad code I wrote at the beginning of my PhD, years ago, with no unit tests or verification procedures, and hastily abstracted from the project repo years after I last touched it. It's not for production! Don't play with it and expect it to work!
 
 * Usage
 Generate a fitness function based on the laser parameters from the paper,
@@ -22,7 +22,7 @@ Generate a fitness function based on the laser parameters from the paper,
 
 Optimization consists of maximizing or minimizing the value of ~fitness()~.
 
-Note that the cost of an evaluation is directly proportional to amount of points in avgtimes. However, making avgtimes small yields transient maximization that rapidly vanishes, as described at length in the paper. No other parameters of the fitness generator have any effect on performance.
+Note that the cost of an evaluation is directly proportional to the number  of points in ~avgtimes~. However, making ~avgtimes~ too small yields very transient isomer populations, as described at length in the paper. This makes optimization artificially easy, and should be avoided when testing optimizers for production. No other parameters of ~build_fitness_function()~ have any effect on program performance (but will alter optimization difficulty and results).
 
 
 * Hamiltonian construction
